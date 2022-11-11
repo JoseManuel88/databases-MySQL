@@ -1,0 +1,43 @@
+create table camioneros(
+	DNI int(9) unsigned,
+	letraDNI varchar(1),
+	nombre varchar(50), 
+	telefono int unsigned,
+	direccion varchar(40),
+	poblacion varchar (30),
+	salario int unsigned,
+	primary key(DNI, letraDNI)
+);
+
+create table Provincias(
+	Codigo int(40) unsigned primary key,
+	Nombre varchar(35)
+);
+
+create table Camiones(
+	Matricula int(15) unsigned primary key,
+	potencia int(20) unsigned,
+	modelo varchar(30),
+	tipo varchar(15)
+);
+
+create table paquetes(
+	codigo int(20) unsigned primary key,
+	destinatario varchar(25),
+	direcciondestino varchar(30),
+	IDcamionero int(30) unsigned,
+	IDcamioneroletra varchar(1),
+	IDprovincia int(40) unsigned,
+	foreign key(IDcamionero, IDcamioneroletra) references camioneros(DNI, letraDNI),
+	foreign key(IDprovincia) references Provincias(Codigo)
+);
+
+create table conducen(
+	DNI2 int(9) unsigned,
+	letraDNI2 varchar(1),
+	Matricula int(15) unsigned,
+	fecha date,
+	IDconducen int(20) unsigned primary key,
+	foreign key(DNI2, letraDNI2) references camioneros(DNI, letraDNI),
+	foreign key(Matricula) references Camiones(Matricula)
+);
